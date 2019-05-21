@@ -48,7 +48,7 @@ app.spaceToPlus = givenSong => {
 
 
 app.masterCallback = songName => {app.spaceToPlus(songName)};
-app.masterCallback('Highway To Hell');
+app.masterCallback('Icon');
 
 
 

@@ -15,6 +15,7 @@ const app = {};
 
 app.apiKey = 'c7236ae5231e4ef992670b2889beb6d7';
 
+//https://developer.spotify.com/console/get-artist/?id=
 
 app.requestOptions = {
     method:"GET",
@@ -47,7 +48,7 @@ app.spaceToPlus = givenSong => {
 
 
 app.masterCallback = songName => {app.spaceToPlus(songName)};
-app.masterCallback('Highway To Hell');
+app.masterCallback('Icon');
 
 
 
