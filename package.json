@@ -19,7 +19,6 @@
   "homepage": "https://github.com/Tomeczqueee/Music-thing#readme",
   "dependencies": {
     "jquery": "^3.4.1",
-    "request": "^2.88.0",
     "uniq": "^1.0.1"
   }
 }
