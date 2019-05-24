@@ -14,7 +14,7 @@ function scrollFunction(){
 
 
 //base64 c7236ae5231e4ef992670b2889beb6d7:39989bd86c8a44e9af3f0470cb9e9270
-
+//
 app.tokenOptions = {
     url: 'https://accounts.spotify.com/en/authorize',
     client_id: 'client_id=6021202dc4a242109a7f7629cb971347',
@@ -52,7 +52,7 @@ app.requestOptions = {
 };
 
 
-app.request = nameToSend =>{
+app.spotifyRequest = nameToSend =>{
     fetch(`https://api.spotify.com/v1/search?q=${nameToSend}&type=track&limit=5`,app.requestOptions)
         .then(response => response.json()
             .then(data => {
@@ -62,44 +62,118 @@ app.request = nameToSend =>{
                 data: data,
                 status: response.status
             }))
-            .then(res => console.log(res.data))
+            .then(res => {
+                    if(response.status==401)window.location = app.tokenOptions.parseToUrl();
+                }
+            )
         )
 
         .catch(error => console.error(error));
 };
 
 
-app.spaceToPlus = givenSong => {
-    (givenSong[0] === ' ') ? app.request(givenSong.replace(' ', ''))
-    : app.request(givenSong.replace(' ', '+'));
-};
-
-
-app.masterCallback = songName => {app.spaceToPlus(songName)};
-app.masterCallback('Icon');
 
 app.geniusOptions = {
+    clent_id: 'b7e880K0QC9MIO774s35GNiB66aKZejAqghmRTdgmB5NGlUGU58qhotYoebJibB1',
+    token: 'pc7b7hIek5I0TXyg1jrVXjQ6GYawyqueWiCIdbXJMVyQiy557bU_NJhDekLy6x9I',
+    //vHCLxBbQPd1oxjkXzOep8GmrcwbefBLtCo17yp_0oWUgg0sHEUF9mPmFJ3apQFaZ
     method:'GET',
     headers: new Headers({
         'User-Agent': 'CompuServe Classic/1.22',
         'Accept': 'application/json',
-        'Authorization': 'vHCLxBbQPd1oxjkXzOep8GmrcwbefBLtCo17yp_0oWUgg0sHEUF9mPmFJ3apQFaZ'
+        'Host': 'api.genius.com',
+        'Authorization': 'Bearer pc7b7hIek5I0TXyg1jrVXjQ6GYawyqueWiCIdbXJMVyQiy557bU_NJhDekLy6x9I'
     })
 };
+//https://api.genius.com/songs/378195?access_token=5ukOINdwfTjaIDB-In2HNlViZE--WrPr6SQYr5zESO7VFoVxSjq66txkl7B0hkgP
+//https://api.genius.com/search?q=${nameToSend}&access_token=${app.geniusOptions.token}
+//3282964
+//3059742
+//441102
+app.geniusRequest = (nameToSend) => {
+    fetch(`https://api.genius.com/search?q=${nameToSend}&access_token=${app.geniusOptions.token}`)
+.then(response => response.json()
+    .then(data => {
+        app.appendToDom(data);
+    }))
+    .catch(error => console.error(error));
+};
 
-app.geniusTokenOptions = {
-    url: 'https://api.genius.com/oauth/authorize?',
-    client_id: 'client_id=b7e880K0QC9MIO774s35GNiB66aKZejAqghmRTdgmB5NGlUGU58qhotYoebJibB1'+'&',
-    headers:{
-        'Content-Type':"application/json"
-    },
-    redirect_uri: `redirect_uri=${encodeURIComponent(`http://127.0.0.1:8080`)}&`,
-
-    parseToUrl: () => {
-        //https://YOUR_REDIRECT_URI/?code=CODE&state=SOME_STATE_VALUE
-        return `${app.geniusTokenOptions.redirect_uri}?${app.tokenOptions.client_id}&${app.tokenOptions.redirect_uri}&${app.tokenOptions.response_type}`
+app.masterCallback = givenSong => {
+    if(givenSong[0] === ' ') {
+        app.spotifyRequest(givenSong.replace(' ', ''));
+        app.geniusRequest(givenSong.replace(' ', ''));
+    }else {
+        app.spotifyRequest(givenSong.replace(' ', '+'));
+        app.geniusRequest(givenSong.replace(' ', '+'));
     }
 };
 
-fetch('https://api.genius.com/artists/16775', app.geniusOptions)
-    .then(result => console.log(result))
+app.appendToDom = data => {
+  const appendDiv = document.getElementById('result-container');
+  if(appendDiv.childNodes) appendDiv.innerHTML='';
+    console.log(data)
+  for(let i=0; i<data.response.hits.length; i++){
+      function threeDots(word) {
+          if(word.length>15) return `${word.substr(0,15)}...`;
+          return word;
+      }
+
+      var scheme = `<div class="result-input">
+                        <div class="r-i-image" id=image-${i}></div>
+                        <a class="category-name">TITLE:</a><div class="r-i-title">${threeDots(data.response.hits[i].result.title)}</div>
+                        <a class="category-name">ARTIST:</a><div class="r-i-artist">${threeDots(data.response.hits[i].result.primary_artist.name)}</div>
+                    </div>`;
+
+      appendDiv.innerHTML += scheme;
+      document.getElementById(`image-${i}`).style.backgroundImage = `url('${data.response.hits[i].result.song_art_image_thumbnail_url}')`;
+  }
+    const resultTab = document.querySelectorAll('.result-input');
+    resultTab.forEach((element,index) => {
+        element.addEventListener('click',function () {
+            app.songDetailsRequest(data.response.hits[index].result.api_path);
+        })
+    });
+};
+
+app.artistDataAppend = toAppend =>{
+    const song = document.getElementById('song-t-a');
+    //song.textContent = toAppend.request.
+    const artist = document.getElementById('artist-t-a');
+    const album = document.getElementById('album-t-a');
+};
+
+
+
+app.songDetailsRequest = apiPath => {
+    fetch(`https://api.genius.com${apiPath}?access_token=${app.geniusOptions.token}`)
+        .then(response => response.json()
+            .then(artistData => {
+                app.artistDataAppend(artistData);
+            }))
+        .catch(error => console.error(error));
+};
+
+
+const button = document.getElementById('browse');
+button.addEventListener('click', (e) => {
+    app.masterCallback(document.getElementById('search').value);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

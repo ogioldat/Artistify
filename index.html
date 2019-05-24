@@ -8,53 +8,49 @@
     <title>Feel the music</title>
 </head>
 <body>
-    <div id="before_container">
-        <input type="text" id="search" placeholder="Szukaj artysty">
-        <button type="button" onclick="reveal();">Szukaj</button>
-    </div>
     <div id="container">
-        <div id="header">
-            <div class="album_cover">
+        <div id="top-bar">
+            <div class="center" id="bar1">
+                <div class="cover-photo"></div>
+            </div>
+            <div class="center" id="bar2">
+                <h4>Song</h4>
+                <div id="song-t-a"></div>
+                <h4>Artist</h4>
+                <div id="artist-t-a"></div>
+                <h4>Album</h4>
+                <div id="album-t-a"></div>
 
-        </div>
-        <div id="info">
-            <h1>Fiji</h1>
-            <h3>Cafe Belga</h3>
-            <h3>Taco Hemingway</h3>
-        </div>
-        <div id="wiki">
-            <h2>O Artyście</h2>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta, doloribus! Molestias facere, temporibus quasi sequi hic delectus dolorem perferendis error, dolore, dolor saepe omnis numquam quos sit quas quidem culpa.</p>
+            </div>
+            <div class="center" id="bar3">
+                <h2>About song</h2>
+                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                    reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                    nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                    sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+            </div>
         </div>
     </div>
-    <div class="main">
-           <div id="left-panel">
-                <h1>Podobne</h1>
-            <div id="simmiliar">
-                <div class="simmiliar-artist">
-                        <div class="album_cover"></div>
-                        <h6>Artsta</h6>
-                </div>  
-                <div class="simmiliar-artist">
-                        <div class="album_cover"></div>
-                        <h6>Artsta</h6>
+
+    <div id="before_container">
+        <div id="aligner" class="center">
+            <div class="result-bg-div">
+                <div id="search-border">
+                    <img src="img/search.png" alt="">
+                    <input type="text" id="search" placeholder="Szukaj piosenki">
                 </div>
-                <div class="simmiliar-artist">
-                        <div class="album_cover"></div>
-                        <h6>Artsta</h6>
-                </div>
-                <div class="simmiliar-artist">
-                        <div class="album_cover"></div>
-                        <h6>Artsta</h6>
-                </div> 
+
+                <div id="result-container"></div>
             </div>
-           </div>
-           <div id="right-panel">
-               <div id="genius">
-                   <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis at, impedit quaerat, numquam natus quam et corporis eveniet cum voluptates veniam necessitatibus reiciendis nulla odit. Illum ratione quibusdam numquam recusandae! Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero hic deserunt sapiente, consequuntur quisquam quibusdam tempore a culpa quo consectetur maiores omnis laudantium, velit quae amet asperiores numquam odio quaerat! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio tenetur odit sit temporibus consequuntur! Facere debitis nostrum eius quae itaque? Voluptate, fugiat ipsam odio error tenetur accusamus culpa animi delectus.</p>
-               </div>
-           </div>
+
+
+            <button type="button" id="browse">Szukaj</button>
         </div>
+
+    </div>
 </body>
-<script src="bundle.js"></script>
+<script src="js/index.js"></script>
 </html>
