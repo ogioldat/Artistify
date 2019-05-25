@@ -1,10 +1,13 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
 html {
     scroll-behavior: smooth;
   }
 body{
     margin: 0 auto;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
     background: #FC5C7D;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to top, #6A82FB, #FC5C7D);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to top, #6A82FB, #FC5C7D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -131,30 +134,74 @@ transition: 0.4s;
 }
 
 #bar1 {
-    width: 30%;
+    width: 25%;
     height: 100%;
 }
 
 #bar2 {
     width: 25%;
     height: 100%;
-    color: white;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+#bar2 div {
+    align-self: center;
+    margin: 20px;
 }
 
 #bar3 {
+    justify-content: flex-start;
+    padding-top: 50px;
     color: white;
-    width: 45%;
+    width: 25%;
     height: 100%;
     flex-direction: column;
-    padding-left: 10%;
-    padding-right: 10%;
 }
 
-.cover-photo {
+#artist-pseudo div {
+    margin: 20px;
+}
+
+
+#bar4 {
+    height: 100%;
+    width: 20%;
+    text-align: center;
+}
+
+.song-n-album {
+    width: 100px;
+    height: 100px;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+h4{
+    margin: 10px;
+    font-size: 1.5em;
+}
+
+#bar1,
+#bar2,
+#bar3,
+#bar4{
+    color: white;
+    flex-direction: column;
+    height: 400px;
+}
+
+#artist-photo {
     width: 250px;
     height: 250px;
-    background: red;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    background-size: cover;
+    background-position: center;
 }
 
 .result-bg-div {
@@ -169,6 +216,11 @@ transition: 0.4s;
     -moz-border-radius: 20px;
     border-radius: 20px;
 }
+
+.s-n-a {
+    flex-direction: column;
+}
+
 
 #aligner {
     width: 100%;
@@ -194,6 +246,11 @@ transition: 0.4s;
     min-height: 20%;
     height: 20%;
     color: #232323;
+    cursor: pointer;
+}
+
+.result-input:hover {
+    background: rgba(44, 44, 44, 0.05);
 }
 
 #result-container::-webkit-scrollbar {
@@ -227,7 +284,13 @@ transition: 0.4s;
 
 .category-name {
     font-weight: bold;
-    
+}
+
+#error-div {
+    width: inherit;
+    height: 340px;
+    font-weight: lighter;
+    font-size: 2em;
 }
 
 
