@@ -12,6 +12,10 @@ body{
     background: -webkit-linear-gradient(to top, #6A82FB, #FC5C7D);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to top, #6A82FB, #FC5C7D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+a {
+    target-new: tab;
+}
+
 #before_container{
     height: 100vh;
     display: flex;
@@ -62,7 +66,8 @@ body{
     border-radius: 50px;
     background-color: rgba(30, 141, 255, 0.44);
     color: white;
-    font-size: 18px;
+    font-weight: bold;
+    font-size: 20px;
     cursor: pointer;
     -webkit-box-shadow: 10px 1px 46px -9px rgba(0,0,0,0.75);
 -moz-box-shadow: 10px 1px 46px -9px rgba(0,0,0,0.75);
@@ -168,6 +173,8 @@ transition: 0.4s;
     height: 100%;
     width: 20%;
     text-align: center;
+    justify-content: flex-start;
+    padding: 50px;
 }
 
 .song-n-album {
@@ -291,6 +298,12 @@ h4{
     height: 340px;
     font-weight: lighter;
     font-size: 2em;
+}
+
+#listen-sc img,
+#listen-yt img{
+    width: 100px;
+    margin: 20px;
 }
 
 

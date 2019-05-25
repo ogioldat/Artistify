@@ -165,6 +165,8 @@ app.songDataAppend = toAppend =>{
 
     parent.innerHTML = songScheme;
     document.getElementById('song-t-a').style.backgroundImage = `url(${toAppend.response.song.song_art_image_url})`;
+    document.getElementById('listen-yt').href = toAppend.response.song.media[0].url;
+    document.getElementById('listen-sc').href = toAppend.response.song.media[1].url;
     parent.innerHTML += albumScheme;
     document.getElementById('album-t-a').style.backgroundImage = `url(${toAppend.response.song.album.cover_art_url})`;
 };
