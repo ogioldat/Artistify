@@ -1,7 +1,15 @@
 const app = {};
+const topBar = document.getElementById('top-bar');
+topBar.className = ' animation-top-bar';
+
+const searchBar = document.querySelector('.res-animation');
+
+const elements = document.querySelectorAll('#bar3,#bar2,#bar4');
+elements.forEach(el => {
+    el.className += ' animation-divs';
+})
 
 window.onscroll = function() {scrollFunction()};
-
 function scrollFunction(){
     if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
         document.getElementById("header").style.padding = "10px 10px";
@@ -13,83 +21,13 @@ function scrollFunction(){
 }
 
 
-//base64 c7236ae5231e4ef992670b2889beb6d7:39989bd86c8a44e9af3f0470cb9e9270
-//
-// app.tokenOptions = {
-//     url: 'https://accounts.spotify.com/en/authorize',
-//     client_id: 'client_id=6021202dc4a242109a7f7629cb971347',
-//     headers:{
-//         'Content-Type':"application/json"
-//     },
-//     response_type: 'response_type=token',
-//     redirect_uri: `redirect_uri=${encodeURIComponent(`http://127.0.0.1:8080`)}`,
-//
-//     parseToUrl: () => {
-//         return `${app.tokenOptions.url}?${app.tokenOptions.client_id}&${app.tokenOptions.redirect_uri}&${app.tokenOptions.response_type}`
-//     }
-// };
-//
-// app.urlRegExp = /[0-9a-zA-Z!@#$%^&*./=+_-]access_token[0-9a-zA-Z!@#$%^&*./=+_-]/;
-//
-//     if(!(app.urlRegExp.test(window.location.href))){
-//             window.location = app.tokenOptions.parseToUrl();
-//             app.tokenCode();
-//     }
-//
-// app.tokenCode = () => {
-//     let tokenSearch = window.location.href;
-//     let tokenStart = tokenSearch.substr(tokenSearch.indexOf('access_token')+13,tokenSearch.length);
-//     return tokenStart.substr(0,tokenStart.indexOf('&'));
-// };
-//
-// app.requestOptions = {
-//     method:"GET",
-//     headers: new Headers({
-//         "Accept":"application/json",
-//         "Content-Type":"application/json",
-//         "Authorization":`Bearer ${app.tokenCode()}`
-//     })
-// };
-
-//
-// app.spotifyRequest = nameToSend =>{
-//     fetch(`https://api.spotify.com/v1/search?q=${nameToSend}&type=track&limit=5`,app.requestOptions)
-//         .then(response => response.json()
-//             .then(data => {
-//                 console.log(data);
-//             })
-//             .then(data =>({
-//                 data: data,
-//                 status: response.status
-//             }))
-//             .then(res => {
-//                     if(response.status==401)window.location = app.tokenOptions.parseToUrl();
-//                 }
-//             )
-//         )
-//
-//         .catch(error => console.error(error));
-// };
-
-
-
 app.geniusOptions = {
     clent_id: 'b7e880K0QC9MIO774s35GNiB66aKZejAqghmRTdgmB5NGlUGU58qhotYoebJibB1',
     token: 'pc7b7hIek5I0TXyg1jrVXjQ6GYawyqueWiCIdbXJMVyQiy557bU_NJhDekLy6x9I',
     //vHCLxBbQPd1oxjkXzOep8GmrcwbefBLtCo17yp_0oWUgg0sHEUF9mPmFJ3apQFaZ
-    method:'GET',
-    headers: new Headers({
-        'User-Agent': 'CompuServe Classic/1.22',
-        'Accept': 'application/json',
-        'Host': 'api.genius.com',
-        'Authorization': 'Bearer pc7b7hIek5I0TXyg1jrVXjQ6GYawyqueWiCIdbXJMVyQiy557bU_NJhDekLy6x9I'
-    })
 };
-//https://api.genius.com/songs/378195?access_token=5ukOINdwfTjaIDB-In2HNlViZE--WrPr6SQYr5zESO7VFoVxSjq66txkl7B0hkgP
-//https://api.genius.com/search?q=${nameToSend}&access_token=${app.geniusOptions.token}
-//3282964
-//3059742
-//441102
+
+
 app.geniusRequest = (nameToSend) => {
     fetch(`https://api.genius.com/search?q=${nameToSend}&access_token=${app.geniusOptions.token}`)
 .then(response => response.json()
@@ -100,11 +38,10 @@ app.geniusRequest = (nameToSend) => {
 };
 
 app.masterCallback = givenSong => {
+    searchBar.className = 'result-bg-div';
     if(givenSong[0] === ' ') {
-        //app.spotifyRequest(givenSong.replace(' ', ''));
         app.geniusRequest(givenSong.replace(' ', ''));
     }else {
-        //aapp.spotifyRequest(givenSong.replace(' ', '+'));
         app.geniusRequest(givenSong.replace(' ', '+'));
     }
 };
@@ -118,9 +55,14 @@ app.artistToAppend = description => {
     const pseudo = document.getElementById('artist-pseudo');
     if(pseudo.childNodes) pseudo.innerHTML='';
 
+    if(description.artist.alternate_names.length===0) {
+        let schemeAlt = `<div>(NO ALTERNATIVE NAMES)</div>`;
+        document.getElementById('artist-pseudo').innerHTML += schemeAlt;
+    }
+
     for(alternative in description.artist.alternate_names){
-        let shcemeAlt = `<div> - ${description.artist.alternate_names[alternative]}</div>`;
-        document.getElementById('artist-pseudo').innerHTML += shcemeAlt;
+        let schemeAlt = `<div> - ${description.artist.alternate_names[alternative]}</div>`;
+        document.getElementById('artist-pseudo').innerHTML += schemeAlt;
     }
 
 };
@@ -136,15 +78,12 @@ app.artistDetailsRequest = (artistId) =>{
 
 
 app.songDataAppend = toAppend =>{
-
     const parent = document.getElementById('bar2');
-
     if(parent.childNodes) parent.innerHTML='';
 
     if(toAppend.response.song.album===null) var albumTitle = '(NO ALBUM)';
     else albumTitle = toAppend.response.song.album.name;
 
-    console.log(toAppend)
     let songScheme = `<div class="center">
                     <div class="center s-n-a">
                         <h4>Song</h4>
@@ -165,13 +104,34 @@ app.songDataAppend = toAppend =>{
 
     parent.innerHTML = songScheme;
     document.getElementById('song-t-a').style.backgroundImage = `url(${toAppend.response.song.song_art_image_url})`;
-    document.getElementById('listen-yt').href = toAppend.response.song.media[0].url;
-    document.getElementById('listen-sc').href = toAppend.response.song.media[1].url;
     parent.innerHTML += albumScheme;
     document.getElementById('album-t-a').style.backgroundImage = `url(${toAppend.response.song.album.cover_art_url})`;
+
+    const links = document.getElementById('links');
+
+    if(links.childNodes) links.innerHTML =' ';
+
+    function scheme(name,index) {
+        let scheme = `<div>
+                  <a href=${toAppend.response.song.media[index].url} target="_blank" id=${name} class="as">
+                    <img src=img/${name}.png class="image-hide">
+                  </a>
+                     </div>`;
+        return links.innerHTML += scheme;
+    }
+    if(toAppend.response.song.media.length===0) {
+        console.log('asd')
+        let scheme = `<div>(NO SONG SOURCES)</div>`;
+        links.innerHTML = scheme;
+    }
+
+    for(let i = 0; i<toAppend.response.song.media.length; i++){
+        if (toAppend.response.song.media[i].provider === 'youtube') scheme('youtube',i);
+        else if (toAppend.response.song.media[i].provider === 'spotify') scheme('spotify',i);
+        else if (toAppend.response.song.media[i].provider === 'soundcloud') scheme('soundcloud',i);
+    }
+
 };
-
-
 
 
 app.songDetailsRequest = apiPath => {
@@ -182,8 +142,6 @@ app.songDetailsRequest = apiPath => {
             }))
         .catch(error => console.error(error));
 };
-
-
 
 
 app.appendToDom = data => {
@@ -208,13 +166,23 @@ app.appendToDom = data => {
         }
     }else {
         document.getElementById('result-container').innerHTML =`<div id="error-div" class="center">NO MATCHING RESULTS FOUND</div>` ;
+
     }
 
     const resultTab = document.querySelectorAll('.result-input');
     resultTab.forEach((element,index) => {
         element.addEventListener('click',function () {
-            app.songDetailsRequest(data.response.hits[index].result.api_path);
-            app.artistDetailsRequest(data.response.hits[index].result.primary_artist.api_path);
+
+            topBar.className -= 'animation-top-bar';
+
+            setTimeout(function () {
+                app.songDetailsRequest(data.response.hits[index].result.api_path);
+                app.artistDetailsRequest(data.response.hits[index].result.primary_artist.api_path);
+
+                elements.forEach(el => {
+                    el.className -= ' animation-divs';
+                })
+            },500);
         })
     });
 };
@@ -222,7 +190,17 @@ app.appendToDom = data => {
 const button = document.getElementById('browse');
 button.addEventListener('click', (e) => {
     app.masterCallback(document.getElementById('search').value);
+
 });
+
+document.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        app.masterCallback(document.getElementById('search').value);
+    }
+});
+
+
 
 
 
