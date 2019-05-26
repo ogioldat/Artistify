@@ -327,7 +327,13 @@ h4{
     height: 60px;
 }
 
+input[type=text]:focus {
+    border: none !important;
+}
 
+* {
+    outline: none !important;
+}
 
 
 
