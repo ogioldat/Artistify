@@ -2,6 +2,7 @@ const app = {};
 
 
 const input = document.getElementById('search');
+const resultContainer = document.getElementById('result-container');
 input.focus();
 const topBar = document.getElementById('top-bar');
 topBar.className = ' animation-top-bar';
@@ -12,6 +13,9 @@ elements.forEach(el => {
 });
 
 const loaderScheme = `<div class="lds-spinner">
+<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+</div>`;
+const loaderSchemeBlack = `<div class="lds-spinner-black">
 <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
 </div>`;
 
@@ -36,12 +40,15 @@ app.geniusRequest = (nameToSend) => {
     fetch(`https://api.genius.com/search?q=${nameToSend}&access_token=${app.geniusOptions.token}`)
 .then(response => response.json()
     .then(data => {
+        resultContainer.className = '';
         app.appendToDom(data);
     }))
     .catch(error => console.error(error));
 };
 
 app.masterCallback = givenSong => {
+    resultContainer.innerHTML = loaderSchemeBlack;
+    resultContainer.className = 'center';
     searchBar.className = 'result-bg-div';
     if(givenSong[0] === ' ') {
         app.geniusRequest(givenSong.replace(' ', ''));
@@ -86,6 +93,7 @@ app.artistDetailsRequest = (artistId) =>{
 
 
 app.songDataAppend = toAppend =>{
+	console.log(toAppend);
     const links = document.getElementById('links');
     links.innerHTML ='';
     const parent = document.getElementById('bar2');
@@ -148,7 +156,7 @@ app.songDetailsRequest = apiPath => {
 };
 
 app.appendToDom = data => {
-    const appendDiv = document.getElementById('result-container');
+    const appendDiv = resultContainer;
     if(appendDiv.childNodes) appendDiv.innerHTML='';
 
     if(data.response.hits.length!==0){
@@ -168,7 +176,7 @@ app.appendToDom = data => {
             document.getElementById(`image-${i}`).style.backgroundImage = `url('${data.response.hits[i].result.song_art_image_thumbnail_url}')`;
         }
     }else {
-        document.getElementById('result-container').innerHTML =`<div id="error-div" class="center">NO MATCHING RESULTS FOUND</div>` ;
+        resultContainer.innerHTML =`<div id="error-div" class="center">NO MATCHING RESULTS FOUND</div>` ;
     }
 
     const resultTab = document.querySelectorAll('.result-input');
