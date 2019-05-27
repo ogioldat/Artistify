@@ -1,7 +1,8 @@
 const app = {};
 
 
-document.getElementById('search').focus();
+const input = document.getElementById('search');
+input.focus();
 const topBar = document.getElementById('top-bar');
 topBar.className = ' animation-top-bar';
 const searchBar = document.querySelector('.res-animation');
@@ -188,8 +189,7 @@ app.appendToDom = data => {
 
 const button = document.getElementById('browse');
 button.addEventListener('click', (e) => {
-    app.masterCallback(document.getElementById('search').value);
-
+	if(input.value) app.masterCallback(document.getElementById('search').value);
 });
 
 document.addEventListener("keyup", function(event) {
