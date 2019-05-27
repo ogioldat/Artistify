@@ -1,5 +1,6 @@
 *{
     font-family: 'Roboto', sans-serif;
+    user-select: none;
 }
 
 html {
@@ -65,8 +66,8 @@ body{
     -webkit-box-shadow: 0 0 30px -9px rgba(0,0,0,0.7);
     -moz-box-shadow: 0 0 30px -9px rgba(0,0,0,0.7);
     box-shadow: 0 0 30px -9px rgba(0,0,0,.7);
-
-transition: 0.4s;
+    z-index: 10;
+    transition: 0.4s;
     align-self: flex-start;
     margin-left: 20px;
 }
