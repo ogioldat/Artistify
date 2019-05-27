@@ -192,6 +192,8 @@ transition: 0.4s;
     border-radius: 50%;
     background-position: center;
     background-size: cover;
+    min-width: 100px;
+    min-height: 100px;
 }
 
 h4{
