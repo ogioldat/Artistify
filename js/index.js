@@ -1,13 +1,14 @@
 const app = {};
+
+
+document.getElementById('search').focus();
 const topBar = document.getElementById('top-bar');
 topBar.className = ' animation-top-bar';
-
 const searchBar = document.querySelector('.res-animation');
-
 const elements = document.querySelectorAll('#bar3,#bar2,#bar4');
 elements.forEach(el => {
     el.className += ' animation-divs';
-})
+});
 
 window.onscroll = function() {scrollFunction()};
 function scrollFunction(){
@@ -20,13 +21,11 @@ function scrollFunction(){
       }
 }
 
-
 app.geniusOptions = {
     clent_id: 'b7e880K0QC9MIO774s35GNiB66aKZejAqghmRTdgmB5NGlUGU58qhotYoebJibB1',
     token: 'pc7b7hIek5I0TXyg1jrVXjQ6GYawyqueWiCIdbXJMVyQiy557bU_NJhDekLy6x9I',
     //vHCLxBbQPd1oxjkXzOep8GmrcwbefBLtCo17yp_0oWUgg0sHEUF9mPmFJ3apQFaZ
 };
-
 
 app.geniusRequest = (nameToSend) => {
     fetch(`https://api.genius.com/search?q=${nameToSend}&access_token=${app.geniusOptions.token}`)
@@ -65,6 +64,7 @@ app.artistToAppend = description => {
         document.getElementById('artist-pseudo').innerHTML += schemeAlt;
     }
 
+    document.getElementById('search').focus();
 };
 
 app.artistDetailsRequest = (artistId) =>{
@@ -130,7 +130,6 @@ app.songDataAppend = toAppend =>{
         else if (toAppend.response.song.media[i].provider === 'spotify') scheme('spotify',i);
         else if (toAppend.response.song.media[i].provider === 'soundcloud') scheme('soundcloud',i);
     }
-
 };
 
 

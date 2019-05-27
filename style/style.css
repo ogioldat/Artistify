@@ -18,6 +18,7 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
 }
 #search-border,
 #before_container input
@@ -26,14 +27,12 @@ body{
     height: 60px;
     border: 0px;
     border-radius: 20px;
-    background-color: #DCDCDC;
-    opacity: 0.5;
     font-size: 24px;
-
-
 }
 #before_container input {
     width: 500px;
+    background-color: transparent !important;
+    color: #6c6c6c;
     justify-self: flex-end;
 }
 
@@ -41,6 +40,7 @@ body{
     display: flex;
     justify-content: space-around;
     align-items: center;
+    background-color: rgba(220, 220, 220, 0.5);
 }
 
 #search-border img {
@@ -57,13 +57,13 @@ body{
     height: 60px;
     border: 0px;
     border-radius: 50px;
-    background-color: rgba(30, 141, 255, 0.44);
-    color: white;
+    background-color: rgba(30, 141, 255, 0.6);
+    color: rgba(255, 255, 255, 0.91);
     font-weight: bold;
     font-size: 20px;
     cursor: pointer;
-    -webkit-box-shadow: 0 0 30px -9px rgba(0,0,0,0.4);
-    -moz-box-shadow: 0 0 30px -9px rgba(0,0,0,0.4);
+    -webkit-box-shadow: 0 0 30px -9px rgba(0,0,0,0.7);
+    -moz-box-shadow: 0 0 30px -9px rgba(0,0,0,0.7);
     box-shadow: 0 0 30px -9px rgba(0,0,0,.7);
 
 transition: 0.4s;
@@ -71,7 +71,10 @@ transition: 0.4s;
     margin-left: 20px;
 }
 #before_container button:hover{
-    background-color: 	#4169E1;
+    transition: 1s;
+    box-shadow: inset 5px 0 20px #325fae,
+    0 0 30px -9px rgba(0,0,0,.7);
+    background-color: #4169E1;
 }
 
 
