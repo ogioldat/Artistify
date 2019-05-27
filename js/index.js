@@ -11,6 +11,10 @@ elements.forEach(el => {
     el.className += ' animation-divs';
 });
 
+const loaderScheme = `<div class="lds-spinner">
+<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+</div>`;
+
 window.onscroll = function() {scrollFunction()};
 function scrollFunction(){
     if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
@@ -50,6 +54,7 @@ app.artistToAppend = description => {
     console.log(description);
     let schemeMain = `<div id="artist-photo"></div>
                 <h4 class="artist-name">${description.artist.name}</h4>`;
+
     document.getElementById('bar1').innerHTML = schemeMain;
     document.getElementById('artist-photo').style.backgroundImage = `url(${description.artist.image_url})`;
 
@@ -82,6 +87,8 @@ app.artistDetailsRequest = (artistId) =>{
 
 
 app.songDataAppend = toAppend =>{
+    const links = document.getElementById('links');
+    links.innerHTML ='';
     console.log(toAppend);
     const parent = document.getElementById('bar2');
     if(parent.childNodes) parent.innerHTML='';
@@ -95,7 +102,7 @@ app.songDataAppend = toAppend =>{
                         <a id="song-name">${toAppend.response.song.title}</a>
                     </div>
 
-                    <div id="song-t-a" class="song-n-album"></div>
+                    <div id="song-t-a" class="song-n-album" ></div>
                 </div>`;
 
     let albumScheme = `<div class="center">
@@ -110,11 +117,11 @@ app.songDataAppend = toAppend =>{
     parent.innerHTML = songScheme;
     document.getElementById('song-t-a').style.backgroundImage = `url(${toAppend.response.song.song_art_image_url})`;
     parent.innerHTML += albumScheme;
-    document.getElementById('album-t-a').style.backgroundImage = `url(${toAppend.response.song.album.cover_art_url})`;
+    if(toAppend.response.song.album !== null) {
+        document.getElementById('album-t-a').style.backgroundImage = `url(${toAppend.response.song.album.cover_art_url})`;
+    }
 
-    const links = document.getElementById('links');
 
-    links.innerHTML ='';
     console.log(toAppend.response.song.media.length);
     function scheme(name,index) {
         let scheme = `<div>
@@ -133,9 +140,7 @@ app.songDataAppend = toAppend =>{
         else if (toAppend.response.song.media[i].provider === 'spotify') scheme('spotify',i);
         else if (toAppend.response.song.media[i].provider ==='soundcloud')scheme('soundcloud',i);
     }
-        
     }
-    
 };
 
 
@@ -177,7 +182,8 @@ app.appendToDom = data => {
     const resultTab = document.querySelectorAll('.result-input');
     resultTab.forEach((element,index) => {
         element.addEventListener('click',function () {
-
+            document.getElementById('bar1').innerHTML = loaderScheme;
+            document.getElementById('bar2').innerHTML = loaderScheme;
             topBar.className -= 'animation-top-bar';
 
             setTimeout(function () {
