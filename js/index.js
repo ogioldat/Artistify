@@ -47,6 +47,7 @@ app.masterCallback = givenSong => {
 };
 
 app.artistToAppend = description => {
+    console.log(description);
     let schemeMain = `<div id="artist-photo"></div>
                 <h4 class="artist-name">${description.artist.name}</h4>`;
     document.getElementById('bar1').innerHTML = schemeMain;
@@ -64,7 +65,7 @@ app.artistToAppend = description => {
         let schemeAlt = `<div> - ${description.artist.alternate_names[alternative]}</div>`;
         document.getElementById('artist-pseudo').innerHTML += schemeAlt;
     }
-
+    topBar.style.backgroundImage = description.artist.header_image_url;
     document.getElementById('search').focus();
 };
 
@@ -181,7 +182,8 @@ app.appendToDom = data => {
 
                 elements.forEach(el => {
                     el.className -= ' animation-divs';
-                })
+                });
+                document.getElementById('bar2').className = 'center';
             },500);
         })
     });
