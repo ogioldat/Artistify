@@ -157,12 +157,12 @@ body{
 
 #bar2 div {
     align-self: center;
-    margin: 20px;
+    margin: 4%;
 }
 
 #bar3 {
     justify-content: flex-start;
-    padding-top: 50px;
+    padding-top: 1%;
     color: white;
     width: 25%;
     height: 100%;
@@ -183,9 +183,9 @@ body{
 #bar4 {
     height: 100%;
     width: 20%;
+    padding-top: 1%;
     text-align: center;
     justify-content: flex-start;
-    padding: 50px;
 }
 
 .song-n-album {
@@ -215,11 +215,17 @@ h4{
 }
 
 #artist-photo {
-    width: 250px;
-    height: 250px;
+    width: 40%;
+    height: 40%;
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
     border-radius: 100%;
+    
+    min-height: 30vh;
+    min-width: 30vh;
+    max-height: 30vh;
+    max-width: 30vh;
+    
     background-size: cover;
     background-position: center;
 }
@@ -269,7 +275,7 @@ h4{
     align-items: center;
     width: 100%;
     border-bottom: .5px solid rgba(102, 102, 102, 0.28);
-    min-height: 20%;
+    min-height: 70px;
     height: 20%;
     color: #232323;
     cursor: pointer;

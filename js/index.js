@@ -65,7 +65,9 @@ app.artistToAppend = description => {
         let schemeAlt = `<div> - ${description.artist.alternate_names[alternative]}</div>`;
         document.getElementById('artist-pseudo').innerHTML += schemeAlt;
     }
+    
     topBar.style.backgroundImage = description.artist.header_image_url;
+    
     document.getElementById('search').focus();
 };
 
@@ -80,6 +82,7 @@ app.artistDetailsRequest = (artistId) =>{
 
 
 app.songDataAppend = toAppend =>{
+    console.log(toAppend);
     const parent = document.getElementById('bar2');
     if(parent.childNodes) parent.innerHTML='';
 
@@ -111,8 +114,8 @@ app.songDataAppend = toAppend =>{
 
     const links = document.getElementById('links');
 
-    if(links.childNodes) links.innerHTML =' ';
-
+    links.innerHTML ='';
+    console.log(toAppend.response.song.media.length);
     function scheme(name,index) {
         let scheme = `<div>
                   <a href=${toAppend.response.song.media[index].url} target="_blank" id=${name} class="as">
@@ -121,17 +124,18 @@ app.songDataAppend = toAppend =>{
                      </div>`;
         return links.innerHTML += scheme;
     }
-    if(toAppend.response.song.media.length===0) {
-        console.log('asd')
-        let scheme = `<div>(NO SONG SOURCES)</div>`;
-        links.innerHTML = scheme;
-    }
+    
+    
+    if(!(toAppend.response.song.media.length===0)){
 
     for(let i = 0; i<toAppend.response.song.media.length; i++){
         if (toAppend.response.song.media[i].provider === 'youtube') scheme('youtube',i);
         else if (toAppend.response.song.media[i].provider === 'spotify') scheme('spotify',i);
-        else if (toAppend.response.song.media[i].provider === 'soundcloud') scheme('soundcloud',i);
+        else if (toAppend.response.song.media[i].provider ==='soundcloud')scheme('soundcloud',i);
     }
+        
+    }
+    
 };
 
 
