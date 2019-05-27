@@ -51,7 +51,6 @@ app.masterCallback = givenSong => {
 };
 
 app.artistToAppend = description => {
-    console.log(description);
     let schemeMain = `<div id="artist-photo"></div>
                 <h4 class="artist-name">${description.artist.name}</h4>`;
 
@@ -89,7 +88,6 @@ app.artistDetailsRequest = (artistId) =>{
 app.songDataAppend = toAppend =>{
     const links = document.getElementById('links');
     links.innerHTML ='';
-    console.log(toAppend);
     const parent = document.getElementById('bar2');
     if(parent.childNodes) parent.innerHTML='';
 
@@ -121,8 +119,6 @@ app.songDataAppend = toAppend =>{
         document.getElementById('album-t-a').style.backgroundImage = `url(${toAppend.response.song.album.cover_art_url})`;
     }
 
-
-    console.log(toAppend.response.song.media.length);
     function scheme(name,index) {
         let scheme = `<div>
                   <a href=${toAppend.response.song.media[index].url} target="_blank" id=${name} class="as">
@@ -131,8 +127,7 @@ app.songDataAppend = toAppend =>{
                      </div>`;
         return links.innerHTML += scheme;
     }
-    
-    
+
     if(!(toAppend.response.song.media.length===0)){
 
     for(let i = 0; i<toAppend.response.song.media.length; i++){
@@ -143,7 +138,6 @@ app.songDataAppend = toAppend =>{
     }
 };
 
-
 app.songDetailsRequest = apiPath => {
     fetch(`https://api.genius.com${apiPath}?access_token=${app.geniusOptions.token}`)
         .then(response => response.json()
@@ -152,7 +146,6 @@ app.songDetailsRequest = apiPath => {
             }))
         .catch(error => console.error(error));
 };
-
 
 app.appendToDom = data => {
     const appendDiv = document.getElementById('result-container');
@@ -176,7 +169,6 @@ app.appendToDom = data => {
         }
     }else {
         document.getElementById('result-container').innerHTML =`<div id="error-div" class="center">NO MATCHING RESULTS FOUND</div>` ;
-
     }
 
     const resultTab = document.querySelectorAll('.result-input');
