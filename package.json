@@ -1,0 +1,25 @@
+{
+  "name": "music-thing",
+  "version": "1.0.0",
+  "description": "Song browser, provides artist info etc.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify js/index.js -o bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tomeczqueee/Music-thing.git"
+  },
+  "author": "Tomasz Ogiolda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tomeczqueee/Music-thing/issues"
+  },
+  "homepage": "https://github.com/Tomeczqueee/Music-thing#readme",
+  "dependencies": {
+    "browserify": "^16.5.0",
+    "jquery": "^3.4.1",
+    "uniq": "^1.0.1"
+  }
+}
