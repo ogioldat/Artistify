@@ -5,7 +5,7 @@
 > App fetches specific JSON data from Genius API and
 displays it in certain order.
 
-**Built with**
+**Built with:**
 - JavaScript
 - HTML
 - [Browserify](http://browserify.org/) 🧙
